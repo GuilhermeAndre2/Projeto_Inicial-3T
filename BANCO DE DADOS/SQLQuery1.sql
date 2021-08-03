@@ -18,4 +18,8 @@ VALUES			('Mobiliario'),
 INSERT INTO Equipamentos(IdTipoEquipamento, IdSala, Situacao, Marca, NumeroSerie, NumeroPatrimonio, Descricao)
 VALUES					(1, 1, 1, 'Samsung', '123456####', '1', 'Notebook Samsung, 1TB, 16GB RAM'),
 						(1, 1, 1, 'Apple', '123457####', '2', 'MackBook Air, 2TB 4GB RAM I3 5º Geração')
+
+
+INSERT INTO Horario(IdSala, IdEquipamento, HorarioEntrada, HorarioSaida)
+VALUES			   (1, 1, '12:00', '06:00')
 	
