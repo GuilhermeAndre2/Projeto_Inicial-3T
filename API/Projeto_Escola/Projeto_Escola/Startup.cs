@@ -70,6 +70,15 @@ namespace Projeto_Escola
                 });
             });
 
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    builder => {
+                        builder.WithOrigins("http://localhost:3000")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    }
+                );
+            });
 
         }
 
@@ -90,6 +99,8 @@ namespace Projeto_Escola
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API do Projeto Inicial");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
