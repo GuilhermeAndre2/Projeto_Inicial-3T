@@ -56,11 +56,11 @@
 }
 
 .content {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 170px;
 }
 
 /* area de cadastro */
@@ -75,6 +75,7 @@
     border: none;
     margin-top: 20px;
 }
+
 
 .inputsCadastros {
     width: 300px;
@@ -113,7 +114,7 @@
 
 .areaCadastro {
     width: 430px;
-    height: 190px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,6 +126,12 @@
     justify-content: flex-end;
 }
 
+.tituloCadastroBig {
+    width:170px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .contentCadastro {
     width: 430px;
     height: 140px;
@@ -132,12 +139,18 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.contentCadastroEquipamento {
+    width: 500px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 /* titulo da pagina  */
 .contentTitulo {
-    width: 150vh;
-    height: 30%;
-    background-color: violet;
+    width: 155vh;
+    height: 40%;
     display: flex;
     justify-content: flex-end;
 }
@@ -151,4 +164,36 @@
     color: white;
     padding-left: 20px;
     border-radius: 3px;
+}
+
+/* login  */
+
+.loginImg {
+    width: 78.2%;
+}
+
+.areaLogin{
+    background-color: yellow;
+    width: 380px;
+    height: 290px;
+}
+
+.contentLogin {
+    background-color: #E5E5E5 ;
+}
+
+.inputsLogin {
+    width: 350px;
+    height: 35px;
+    background-color: #65829C;
+    border-radius: 4px;
+    border: none;
+    outline: 0;
+    padding-left: 15px;
+    font-family: 'Montserrat';
+    color: #fff;
+}
+
+.tituloLogin {
+    
 }
