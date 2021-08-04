@@ -29,7 +29,8 @@ namespace Projeto_Escola.Contexts
             if (!optionsBuilder.IsConfigured)
             {
                
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-GUILHERM\\SQLEXPRESS; initial catalog=Projeto_escola; user Id=sa; pwd=48630533803;");
+                //optionsBuilder.UseSqlServer("Data Source=LAPTOP-GUILHERM\\SQLEXPRESS; initial catalog=Projeto_escola; user Id=sa; pwd=48630533803;");
+                optionsBuilder.UseSqlServer("Data Source = DESKTOP-FHUJ8D1\\SQLEXPRESS; initial catalog = Projeto_escola; integrated security = true");
             }
         }
 
