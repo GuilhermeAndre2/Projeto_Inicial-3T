@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -61,6 +61,15 @@ namespace Projeto_Escola
                     o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
+            services.AddSwaggerGen();
+            services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "API do Projeto Inicial"
+                });
+            });
+
 
         }
 
@@ -73,6 +82,14 @@ namespace Projeto_Escola
             }
 
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c=>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API do Projeto Inicial");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {
