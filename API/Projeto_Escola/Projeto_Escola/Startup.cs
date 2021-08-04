@@ -102,6 +102,7 @@ namespace Projeto_Escola
 
             app.UseCors("CorsPolicy");
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
