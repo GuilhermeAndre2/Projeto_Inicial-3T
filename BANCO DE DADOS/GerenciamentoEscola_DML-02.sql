@@ -20,6 +20,6 @@ VALUES					(1, 1, 1, 'Samsung', '123456####', '1', 'Notebook Samsung, 1TB, 16GB 
 						(1, 1, 1, 'Apple', '123457####', '2', 'MackBook Air, 2TB 4GB RAM I3 5º Geração')
 
 
-INSERT INTO Horario(IdSala, IdEquipamento, HorarioEntrada, HorarioSaida)
-VALUES			   (1, 1, '12:00', '06:00')
+INSERT INTO DataMovimentacao	(IdSala, IdEquipamento, DataEntrada, DataSaida)
+VALUES							(1, 2, '04-08-2021 12:00', '04-08-2021 06:00')
 	

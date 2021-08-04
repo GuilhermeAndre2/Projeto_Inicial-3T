@@ -39,10 +39,12 @@ CREATE TABLE Equipamentos
 	Descricao			  VARCHAR(200)
 );
 
-CREATE TABLE Horario
+CREATE TABLE DataMovimentacao
 (
 	IdSala			INT FOREIGN KEY REFERENCES Sala(IdSala),
 	IdEquipamento	INT FOREIGN KEY REFERENCES Equipamentos(IdEquipamento),
-	HorarioEntrada  TIME,
-	HorarioSaida	TIME
+	DataEntrada		DATETIME,
+	DataSaida		DATETIME
 );
+
+DROP TABLE Horario;
