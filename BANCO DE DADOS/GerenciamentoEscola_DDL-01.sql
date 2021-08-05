@@ -1,5 +1,5 @@
 CREATE DATABASE Projeto_escola;
-
+go
 USE Projeto_escola;
 
 

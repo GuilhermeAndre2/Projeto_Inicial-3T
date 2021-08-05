@@ -19,7 +19,6 @@ namespace Projeto_Escola.Contexts
         }
 
         public virtual DbSet<Equipamento> Equipamentos { get; set; }
-        public virtual DbSet<Horario> Horarios { get; set; }
         public virtual DbSet<Sala> Salas { get; set; }
         public virtual DbSet<TipoEquipamento> TipoEquipamentos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
@@ -28,9 +27,8 @@ namespace Projeto_Escola.Contexts
         {
             if (!optionsBuilder.IsConfigured)
             {
-               
                 //optionsBuilder.UseSqlServer("Data Source=LAPTOP-GUILHERM\\SQLEXPRESS; initial catalog=Projeto_escola; user Id=sa; pwd=48630533803;");
-                optionsBuilder.UseSqlServer("Data Source = DESKTOP-FHUJ8D1\\SQLEXPRESS; initial catalog = Projeto_escola; integrated security = true");
+                optionsBuilder.UseSqlServer("Data Source = DESKTOP-SL5KKOH; initial catalog = Projeto_escola; integrated security = true");
             }
         }
 
@@ -70,23 +68,6 @@ namespace Projeto_Escola.Contexts
                     .WithMany(p => p.Equipamentos)
                     .HasForeignKey(d => d.IdTipoEquipamento)
                     .HasConstraintName("FK__Equipamen__IdTip__49C3F6B7");
-            });
-
-            modelBuilder.Entity<Horario>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("Horario");
-
-                entity.HasOne(d => d.IdEquipamentoNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdEquipamento)
-                    .HasConstraintName("FK__Horario__IdEquip__59063A47");
-
-                entity.HasOne(d => d.IdSalaNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdSala)
-                    .HasConstraintName("FK__Horario__IdSala__5812160E");
             });
 
             modelBuilder.Entity<Sala>(entity =>
