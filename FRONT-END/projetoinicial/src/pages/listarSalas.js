@@ -1,54 +1,46 @@
 import './style.css';
 import { Component } from 'react';
-import axios from 'axios';
-import imagemLogin from '../assets/img/Group 38 (1).png'
+
 
 class salas extends Component{
   constructor(props){
     super(props);
     this.state = {
-      email : '',
-      senha : '', 
-      erroMensagem : ''
+      ListaSalas : []
     }
   }
 
-  login = (event) => {
+  ListarSalas = () => {
+    fetch('http://localhost:5000/api/Salas')
 
-    event.preventDefautl();
+    .then(resposta => resposta.json())
 
-    axios.post('http://localhost:5000/api/Equipamentos', {
-      email : this.state.email,
-      senha : this.state.senha
-    })
+    //.then(resposta => console.log(this.state.l))
 
-    .then (resposta => {
-      if(resposta.status === 200){
-        localStorage.setItem('token-login', resposta.data.token)
-        this.props.history.push('/listarSalas')
-      }
-    })
+    .then(dados => this.setState({ListaSalas : dados}))
 
-    .catch(error => console.log(error))
+    .catch((erro) => console.log(erro))
 
-    // funcaoMudaState =(campo)=> {
-    //   this.setState({[campo.target.name] : campo.target.value})
-    // }
+  }
+  
+  componentDidMount(){
+    this.ListarSalas();
   }
 
   render(){
     return(
       <section>
-        <section className="contentLogin dis ali">
-          <div>
-              <img src={imagemLogin} className= "loginImg" alt=""/>
-          </div>
-          <div className="areaLogin dis column">
-            <h1 className="tituloLogin">Faça seu login</h1>
-
-            <button>Login</button>
-        </div>
-        </section>
+          {
+            this.state.ListaSalas.map((dados) => {
+              return(
+                <div>
+                    <p>{dados.nome}</p>
+                    <p>{dados.andar}</p>
+                    <p>{dados.metragem}</p>
+                </div>
+              )
+            } )
+          }
       </section>
     )
   }

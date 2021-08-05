@@ -7,39 +7,37 @@ class cadastroSalas extends Component{
   constructor(props){
     super(props);
     this.state = {
-      email : '',
-      senha : '', 
-      erroMensagem : ''
+        andar : '',
+        nome : '',
+        metragem : ''
     }
   }
 
-  login = (event) => {
+  CadastrarSala = (event) => {
+      event.preventDefault();
 
-    event.preventDefautl();
+      fetch('http://localhost:5000/api/salas', {
 
-    axios.post('http://localhost:5000/api/Equipamentos', {
-      email : this.state.email,
-      senha : this.state.senha
-    })
+      method : 'POST',
 
-    .then (resposta => {
-      if(resposta.status === 200){
-        localStorage.setItem('token-login', resposta.data.token)
-        this.props.history.push('/listarSalas')
-      }
-    })
+      body : JSON.stringify({andar : this.state.andar, nome : this.state.nome, metragem : this.state.metragem}),
 
-    .catch(error => console.log(error))
+      headers : {
+        "Content-Type" : "application/json"
+        }
+      })
 
-    // funcaoMudaState =(campo)=> {
-    //   this.setState({[campo.target.name] : campo.target.value})
-    // }
+      console.log('Deu certo')
+
   }
 
+  funcaoMudaState = (campo) => {
+    this.setState({[campo.target.name] : campo.target.value})
+  }
+  
   render(){
     return(
-      
-<section class="corpo dis ">
+        <section class="corpo dis ">
         <div class="barra-lateral dis column ali">
             <div class="barraContent dis column ali spa">
                 <img src={logoImg} alt="logo"/>
@@ -64,37 +62,37 @@ class cadastroSalas extends Component{
             </div>
 
             <div class="areaCadastro">
-                <div class="contentCadastro">
+                <form onSubmit={this.CadastrarSala} class="contentCadastro">
                     <div class="contentInput dis">
                         <div class="tituloCadastro">
                             <p> Nome </p>
                         </div>
-                        <input class="inputsCadastros" type="text" placeholder="Digite um nome"/>
+                        <input class="inputsCadastros" name='nome' value={this.state.nome} onChange={this.funcaoMudaState} type="text" placeholder="Digite um nome"/>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastro">
                             <p> Andar </p>
                         </div>
-                        <select name="selectCadastro" class="selectCadastros" id="">
+                        <select name="andar" value={this.state.andar} onChange={this.funcaoMudaState} class="selectCadastros" id="">
                             <option value="0">Selecione um andar</option>
                             <option value="1">1º andar</option>
-                            <option value="1">2º andar</option>
-                            <option value="1">3º andar</option>
-                            <option value="1">4º andar</option>
+                            <option value="2">2º andar</option>
+                            <option value="3">3º andar</option>
+                            <option value="4">4º andar</option>
                         </select>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastro">
                             <p> Metragem </p>
                         </div>
-                        <input class="inputsCadastros" type="text" placeholder="Digite a metragem"/>
+                        <input class="inputsCadastros" type="text" name='metragem' value={this.state.metragem} onChange={this.funcaoMudaState} placeholder="Digite a metragem"/>
                     </div>
-                </div>
-                
-                <button> Cadastrar </button>
+                    <button type='submit'> Cadastrar </button>
+                </form>
             </div>
         </section>
     </section>
+
     )
   }
 }
