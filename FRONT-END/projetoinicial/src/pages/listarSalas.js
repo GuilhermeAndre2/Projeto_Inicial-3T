@@ -1,5 +1,7 @@
 import './style.css';
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+import logoImg from '../assets/img/Group 35.png'
 
 
 class salas extends Component{
@@ -15,8 +17,6 @@ class salas extends Component{
 
     .then(resposta => resposta.json())
 
-    //.then(resposta => console.log(this.state.l))
-
     .then(dados => this.setState({ListaSalas : dados}))
 
     .catch((erro) => console.log(erro))
@@ -29,19 +29,50 @@ class salas extends Component{
 
   render(){
     return(
-      <section>
+        <section class="corpo dis ">
+        <div class="barra-lateral dis column ali">
+            <div class="barraContent dis column ali spa">
+                <img src={logoImg} alt="logo"/>
+
+                    <h1>Ola, Gabriel</h1>
+
+                <div class="links dis column spa">
+                    <Link className="linkstext borda" to="salas">Salas</Link>
+                    <Link className="linkstext" to="Equipamentos">Equipamentos</Link>
+                    <Link className="linkstext" to="cadastroSala">Cadastro sala</Link>
+                    <Link className="linkstext" to="cadastroEquipamento">Cadastro equip.</Link>
+                </div>
+            </div>
+        </div>
+        <section class="content dis column ali jus">
+
+            <div class="contentTitulo">
+                <div class="tituloPagina">
+                    <p>Cadastro de equipamentos</p>
+                </div>
+            </div>
+          <div className="contentBoxListar">
           {
             this.state.ListaSalas.map((dados) => {
               return(
-                <div>
-                    <p>{dados.nome}</p>
+                <div className="boxListarSalas dis column ali">
+                   <p className="tituloSala">{dados.nome}</p>
+                  <div className = "dis linhaListar">
+                    <p>Andar</p>
                     <p>{dados.andar}</p>
+                  </div>
+                  <div className="dis linhaListar">
+                    <p>Metragem</p>
                     <p>{dados.metragem}</p>
+                  </div>
                 </div>
               )
             } )
           }
-      </section>
+          </div>
+            
+        </section>
+  </section>
     )
   }
 }

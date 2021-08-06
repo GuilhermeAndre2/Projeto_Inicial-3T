@@ -32,19 +32,32 @@
     padding-top: 15px;
     color: #E5E5E5;
     background-color: #3A3A3A;
-    height: 98.1vh;
     width: 220px;
     font-family: 'Montserrat';
 }
 
 .barraContent {
-    height: 400px;
+    max-height: 400px;
 }
 
 .links{
     height: 160px;
+    padding-left: 50px;
+    color: white;
+}
+
+.linkstext{
+    color: white;
+    text-decoration: none;
+}
+
+.linkstext :hover {
+    color: rgb(179, 0, 0);
+    transform: scale(1.5); 
+}
+
+.links Link {
     font-size: 12px;
-    padding-left: 20px;
 }
 
 /* pagina inteira */
@@ -65,7 +78,7 @@
 
 /* area de cadastro */
 
-.areaCadastro button {
+.areaCadastro button, .areaCadastroEquip button {
     width: 120px;
     height: 25px;
     background-color: #354089;
@@ -112,9 +125,8 @@
     justify-content: space-between;
 }
 
-.areaCadastro {
+.areaCadastroEquip, .areaCadastro{
     width: 430px;
-    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,14 +146,14 @@
 
 .contentCadastro {
     width: 430px;
-    height: 140px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 .contentCadastroEquipamento {
     width: 500px;
-    height: 220px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -191,4 +203,71 @@
     padding-left: 15px;
     font-family: 'Montserrat';
     color: #fff;
+}
+
+/* listar */
+
+.boxListarSalas {
+    width: 220px;
+    height: 90px;
+    background-image: linear-gradient(#474961, #3A3A3A);
+    border-radius: 5px;
+    font-family: 'montserrat';
+    font-size: 16px;
+    color: white;
+    padding: 10px;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.boxListarEquip {
+    width: 260px;
+    height: 60%;
+    background-image: linear-gradient(#474961, #3A3A3A);
+    border-radius: 5px;
+    font-family: 'montserrat';
+    font-size: 16px;
+    color: white;
+    padding: 10px;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.tituloSala{
+    margin-bottom: 10px;
+}
+
+.linhaListar{
+    width: 200px;
+    justify-content: space-between;
+}
+
+.linhaListarEquip {
+    width: 250px;
+    justify-content: space-between;
+}
+
+.contentBoxListarEquip{
+    max-width: 1000px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.contentBoxListar{
+    width: 1090px;
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.borda {
+    width: 160px;
+    height: 30px;
+    padding-left: 10px;
+    background-color: #354089;
+    display: flex;
+    align-items: center;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 1px 1px 5px #494949
+
 }

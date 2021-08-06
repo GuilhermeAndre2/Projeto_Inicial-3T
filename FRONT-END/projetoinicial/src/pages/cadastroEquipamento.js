@@ -1,6 +1,8 @@
 import './style.css';
 import { Component } from 'react';
 import logoImg from '../assets/img/Group 35.png'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class cadastroEquipamento extends Component{
@@ -11,7 +13,6 @@ class cadastroEquipamento extends Component{
         ListaTipoEquipamento : [],
         TipoEquipamento : '',
         IdSala : '',
-        situacao : '',
         marca : '',
         numeroSerie : '',
         numeroPatrimonio : '',
@@ -20,20 +21,34 @@ class cadastroEquipamento extends Component{
   }
 
   CadastrarEquipamento = (event) => {
+
       event.preventDefault();
 
-      fetch('http://localhost:5000/api/salas', {
+        axios.post('http://localhost:5000/api/Equipamentos', {
+            idTipoEquipamento : this.state.TipoEquipamento,
+            idSala : this.state.IdSala, 
+            situacao : parseInt(0), 
+            marca : this.state.marca, 
+            numeroSerie : this.state.numeroSerie, 
+            numeroPatrimonio : this.state.numeroPatrimonio, 
+            descricao : this.state.descricao
+        })
+        .then(resposta => {
+            if(resposta.status === 201) {
+                console.log("criado")
 
-      method : 'POST',
+                this.setState({
+                    TipoEquipamento : '',
+                    IdSala : '',
+                    marca : '',
+                    numeroSerie : '',
+                    numeroPatrimonio : '',
+                    descricao : '' 
+                })
+            }
+        })
 
-      body : JSON.stringify({IdTipoEquipamento : this.state.TipoEquipamento, IdSala : this.state.IdSala, situacao : this.state.situacao, marca : this.state.marca, numeroSerie : this.state.numeroSerie, numeroPatrimonio : this.state.numeroPatrimonio, descricao : this.state.descricao}),
-
-      headers : {
-        "Content-Type" : "application/json"
-        }
-      })
-
-      console.log('Deu certo')
+        .catch(erro => console.log(erro))
 
   }
 
@@ -41,8 +56,6 @@ class cadastroEquipamento extends Component{
     fetch('http://localhost:5000/api/Salas')
 
     .then(resposta => resposta.json())
-
-    //.then(resposta => console.log(this.state.l))
 
     .then(dados => this.setState({ListaSalas : dados}))
 
@@ -80,11 +93,10 @@ class cadastroEquipamento extends Component{
                     <h1>Ola, Gabriel</h1>
 
                 <div class="links dis column spa">
-                    <h2>Salas</h2>
-                    <h2>Equipamentos</h2>
-                    <h2>Dashboard</h2>
-                    <h2>Cadastro sala</h2>
-                    <h2>Cadastro equip.</h2>
+                    <Link className="linkstext" to="salas">Salas</Link>
+                    <Link className="linkstext" to="Equipamentos">Equipamentos</Link>
+                    <Link className="linkstext" to="cadastroSala">Cadastro sala</Link>
+                    <Link className="linkstext borda" to="cadastroEquipamento">Cadastro equip.</Link>
                 </div>
             </div>
         </div>
@@ -96,24 +108,28 @@ class cadastroEquipamento extends Component{
                 </div>
             </div>
 
-            <div class="areaCadastro">
+            <form onSubmit={this.CadastrarEquipamento} class="areaCadastroEquip">
                 <div class="contentCadastroEquipamento">
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
                             <p> Marca </p>
                         </div>
-                        <input class="inputsCadastros" name='marca' value={this.state.marca} type="text" placeholder="Digite o nome da marca"/>
+                        <input class="inputsCadastros" name='marca' value={this.state.marca} type="text" placeholder="Digite o nome da marca" onChange={this.funcaoMudaState}/>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
-                            <p> Andar </p>
+                            <p> Sala </p>
                         </div>
-                        <select name="andar" value={this.state.IdSala} class="selectCadastros" id="">
+                        <select name="IdSala" value={this.state.IdSala} class="selectCadastros" id="" onChange={this.funcaoMudaState}>
                             <option value="0">Selecione uma sala</option>
-                            <option value="1">1º andar</option>
-                            <option value="1">2º andar</option>
-                            <option value="1">3º andar</option>
-                            <option value="1">4º andar</option>
+                            {
+                                this.state.ListaSalas.map((salas) => {
+                                    return(
+                                    <option value={salas.idSala}>{salas.nome}</option>
+                                    )
+                                })
+                            }
+                            
                         </select>
                     </div>
 
@@ -121,11 +137,15 @@ class cadastroEquipamento extends Component{
                         <div class="tituloCadastroBig">
                             <p> Tipo Equipamento </p>
                         </div>
-                        <select name="andar" value={this.state.IdSala} class="selectCadastros" id="">
+                        <select name="TipoEquipamento" value={this.state.TipoEquipamento} class="selectCadastros" onChange={this.funcaoMudaState} >
                             <option value="0">Selecione um tipo de equipamento</option>
-                            <option value="1">1º andar</option>
-                            <option value="1">2º andar</option>
-                            <option value="1">3º andar</option>
+                            {
+                                this.state.ListaTipoEquipamento.map((tipo) => {
+                                    return(
+                                        <option value = {tipo.idTipoEquipamento}>{tipo.nome}</option>
+                                    )
+                                })
+                            }
                         </select>
                     </div>
                     
@@ -133,30 +153,30 @@ class cadastroEquipamento extends Component{
                         <div class="tituloCadastroBig">
                             <p> Num. de série </p>
                         </div>
-                        <input class="inputsCadastros" type="text" name='numero de serie' value={this.state.numeroSerie} placeholder="Digite o número de série"/>
+                        <input class="inputsCadastros" type="text" name='numeroSerie' value={this.state.numeroSerie} onChange={this.funcaoMudaState} placeholder="Digite o número de série" />
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
                             <p> Num. de patrimônio </p>
                         </div>
-                        <input class="inputsCadastros" name='numero patrimonio' value={this.state.numeroPatrimonio} type="text" placeholder="Digite o número de patrimônio"/>
+                        <input class="inputsCadastros" name='numeroPatrimonio' value={this.state.numeroPatrimonio} type="text" placeholder="Digite o número de patrimônio" onChange={this.funcaoMudaState}/>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
                             <p> Situação </p>
                         </div>
-                        <input class="inputsCadastros" name='situação' value={this.state.situacao}type="text" placeholder=""/>
+                        <input class="inputsCadastros" name='situacao' value={this.state.situacao} type="text" placeholder="Inativo" readOnly onChange={this.funcaoMudaState}/>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
                             <p> Descrição </p>
                         </div>
-                        <input class="inputsCadastros" name='descrição' value={this.state.descricao}type="text" placeholder=""/>
+                        <input class="inputsCadastros" name='descricao' value={this.state.descricao} type="text" placeholder="Digite a descrição" onChange={this.funcaoMudaState}/>
                     </div>
                 </div>
                 
-                <button> Cadastrar </button>
-            </div>
+                <button type="submit"> Cadastrar </button>
+            </form>
         </section>
     </section>
     )

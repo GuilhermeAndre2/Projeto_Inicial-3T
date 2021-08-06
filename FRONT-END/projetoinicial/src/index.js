@@ -12,7 +12,7 @@ const rotas = (
     <Switch>
       <Route exact path="/" component={Login} />
       <Route path="/salas" component={salas} />
-      <Route path="/cadastroSalas" component={cadastroSala} />
+      <Route path="/cadastroSala" component={cadastroSala} />
       <Route path="/Equipamentos" component={Equipamentos}/>
       <Route path="/cadastroEquipamento" component={cadastroEquipamento}/>
     </Switch>

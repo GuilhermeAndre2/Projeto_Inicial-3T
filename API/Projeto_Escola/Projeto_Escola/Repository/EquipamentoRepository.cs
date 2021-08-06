@@ -1,4 +1,5 @@
-﻿using Projeto_Escola.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Projeto_Escola.Contexts;
 using Projeto_Escola.Domains;
 using Projeto_Escola.Interfaces;
 using System;
@@ -64,7 +65,10 @@ namespace Projeto_Escola.Repository
 
         public List<Equipamento> Listar()
         {
-            return ctx.Equipamentos.ToList();
+            return ctx.Equipamentos
+                .Include(c => c.IdSalaNavigation)
+                .Include(c => c.IdTipoEquipamentoNavigation)
+                .ToList();
         }
     }
 }

@@ -1,15 +1,16 @@
 import './style.css';
 import { Component } from 'react';
-import axios from 'axios';
 import logoImg from '../assets/img/Group 35.png'
+import { Link } from 'react-router-dom';
 
 class cadastroSalas extends Component{
   constructor(props){
     super(props);
     this.state = {
+        listaNome : [],
         andar : '',
         nome : '',
-        metragem : ''
+        metragem : '',
     }
   }
 
@@ -27,8 +28,21 @@ class cadastroSalas extends Component{
         }
       })
 
-      console.log('Deu certo')
+    }
 
+
+ListarNome = () => {
+    fetch('http://localhost:5000/api/Usuarios')
+
+    .then(resposta => resposta.json())
+
+    .then(resposta => this.setState({listaNome : resposta}))
+
+    .catch((erro) => console.log(erro))
+}   
+
+  componentDidMount(){
+      this.ListarNome();
   }
 
   funcaoMudaState = (campo) => {
@@ -38,21 +52,21 @@ class cadastroSalas extends Component{
   render(){
     return(
         <section class="corpo dis ">
-        <div class="barra-lateral dis column ali">
+            <div class="barra-lateral dis column ali">
             <div class="barraContent dis column ali spa">
                 <img src={logoImg} alt="logo"/>
 
-                    <h1>Ola, Gabriel</h1>
+                    <h1>Ola, {this.state.listaNome.nome}</h1>
 
                 <div class="links dis column spa">
-                    <h2>Salas</h2>
-                    <h2>Equipamentos</h2>
-                    <h2>Dashboard</h2>
-                    <h2>Cadastro sala</h2>
-                    <h2>Cadastro equip.</h2>
+                    <Link className="linkstext" to="salas">Salas</Link>
+                    <Link className="linkstext" to="Equipamentos">Equipamentos</Link>
+                    <Link className="linkstext borda" to="cadastroSala">Cadastro sala</Link>
+                    <Link className="linkstext" to="cadastroEquipamento">Cadastro equip.</Link>
                 </div>
             </div>
-        </div>
+            </div>
+        
         <section class="content dis column ali jus">
 
             <div class="contentTitulo">
