@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/img/Group 35.png'
-import lixo from '../assets/img/trash-solid.svg'
 import './style.css';
 import axios from 'axios'
 
@@ -136,6 +135,19 @@ class Equipamentos extends Component{
       this.abreModal2();
     }
 
+    EditarPeloId = async (user) => {
+
+      await this.setState({idEquipamentoSelecionado : user.idEquipamento})
+      await this.buscarEquipamentoId();
+      this.abreModal3();
+    }
+
+    IdExcluir = async (user) => {
+
+      await this.setState({idEquipamentoSelecionado : user.idEquipamento})
+      this.excluir();
+    }
+
     abreModal () {
       const modal = document.getElementById('modal')
       modal.classList.add('mostrar')
@@ -153,6 +165,19 @@ class Equipamentos extends Component{
         modal.classList.add('mostrar')
         modal.addEventListener('click', (e)=> {
           if(e.target.id === "modal2" || e.target.id === "fechar"){
+            modal.classList.remove('mostrar')
+          }
+        })
+      }
+    }
+
+    abreModal3 = async () => {
+      const modal = await document.getElementById('modal3')
+  
+      if(modal){
+        modal.classList.add('mostrar')
+        modal.addEventListener('click', (e)=> {
+          if(e.target.id === "modal3" || e.target.id === "fechar"){
             modal.classList.remove('mostrar')
           }
         })
@@ -195,11 +220,8 @@ class Equipamentos extends Component{
                   <thead>
                       <td>Marca</td>
                       <td>Sala</td>
-                      <td className ="listaEscondida">Nº do Patrimônio</td>
-                      <td className="listaEscondida">Nº de Série</td>
                       <td>Tipo do Equipamento</td>
                       <td>Situação</td>
-                      <td className="listaEscondida">Descrição</td>
                   </thead>
                   
                   <tbody>
@@ -208,13 +230,14 @@ class Equipamentos extends Component{
                               return(
                                   <tr key={dados.idEquipamento}>
                                       <td className="its">{dados.marca}</td>
-                                      <td className="its">informatica ***</td>
-                                      <td className="its">eletronico ***</td>
-                                      {/* <td className="its">{dados.idSalaNavigation.nome}</td>  */}
-                                      {/* <td className="its">{dados.idTipoEquipamentoNavigation.nome}</td> */}
+                                      {/* <td className="its">informatica ***</td>
+                                      <td className="its">eletronico ***</td> */}
+                                      <td className="its">{dados.idSalaNavigation.nome}</td> 
+                                      <td className="its">{dados.idTipoEquipamentoNavigation.nome}</td>
                                       <td className="its">{dados.situacao = false ? <p>Ativo</p> : <p>Inativo</p>}</td>
-                                      <td className="its"> <button className="buttonLixeira" onClick ={this.excluir()} >Excluir</button></td>
+                                      <td className="its"> <button className="buttonLixeira" onClick ={()=> {this.IdExcluir(dados)}} >Excluir</button></td>
                                       <td><p className="detalhes" onClick={()=> this.buscarPeloId(dados)}>+ Ver detalhes</p></td>
+                                      <td><p className="detalhes" onClick={()=> this.EditarPeloId(dados)}>+ Editar</p></td>
                                   </tr>
                               )
                           })
@@ -306,12 +329,6 @@ class Equipamentos extends Component{
                     <p>{this.state.data.marca}</p>
                   </div>
                   <div className = "dis linhaListarEquip">
-                    <p>Sala</p>
-                  </div>
-                  <div className = "dis linhaListarEquip">
-                    <p>Tipo do equip.</p>
-                  </div>
-                  <div className = "dis linhaListarEquip">
                     <p>Número de Série</p>
                     <p>{this.state.data.numeroSerie}</p>
                   </div>
@@ -327,7 +344,65 @@ class Equipamentos extends Component{
                     <p>Descrição:</p>
                     <p>{this.state.data.descricao}</p>
                   </div>
+                  <div>
+                    <button className="buttonFechar" id="fechar">Fechar</button>
+                  </div>
                 </div>
+          </section>
+          
+            <section className="modalContent" id="modal3">
+              <form onSubmit={this.CadastrarEquipamento} class="areaCadastroEquip">
+                  <div class="contentCadastroEquipamento">
+                      <div className = "dis linhaListarEquip">
+                          <p>Marca</p>
+                          <p>{this.state.data.marca}</p>
+                        </div>
+                      <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Sala </p>
+                          </div>
+                          <select name="IdSala" value={this.state.IdSala} class="selectCadastros" id="" onChange={this.funcaoMudaState}>
+                              <option value="0">Selecione uma sala</option>
+                              {
+                                  this.state.ListaSalas.map((salas) => {
+                                      return(
+                                      <option value={salas.idSala}>{salas.nome}</option>
+                                      )
+                                  })
+                              }
+                              
+                          </select>
+                      </div>
+                      <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Nº de série </p>
+                          </div>
+                          <input class="inputsCadastros" type="text" name='numeroSerie' value={this.state.numeroSerie} onChange={this.funcaoMudaState} placeholder="Digite o número de série" />
+                      </div>
+                      <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Nº de patrimônio </p>
+                          </div>
+                          <input class="inputsCadastros" name='numeroPatrimonio' value={this.state.numeroPatrimonio} type="text" placeholder="Digite o número de patrimônio" onChange={this.funcaoMudaState}/>
+                      </div>
+                      <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Situação </p>
+                          </div>
+                          <input class="inputsCadastros" name='situacao' value={this.state.situacao} type="text" placeholder="Inativo" readOnly onChange={this.funcaoMudaState}/>
+                      </div>
+                      <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Descrição </p>
+                          </div>
+                          <input class="inputsCadastros" name='descricao' value={this.state.descricao} type="text" placeholder="Digite a descrição" onChange={this.funcaoMudaState}/>
+                      </div>
+                  </div>
+                    <div className="botaoCadastroContent dis">
+                        <button className="buttonGeral" id="fechar" type='submit'> Cadastrar </button>
+                        <div className="buttonGeral" id="fechar"> Cancelar </div>
+                    </div>
+              </form>
           </section>
       </section>
       )

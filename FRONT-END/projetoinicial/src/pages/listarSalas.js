@@ -36,19 +36,13 @@ class salas extends Component{
 
   buscarPeloId = async (user) => {
 
-    await this.setState({idSalaSelecionado : user.idSala})
-    console.log(this.state.idSalaSelecionado)
-
-    if(this.state.idSalaSelecionado !== 0){
-      this.abreModal2();
-      this.buscarSala();
-    }
-
-    
+    await this.setState({idEquipamentoSelecionado : user.idSala})
+    await this.listarSalasEquip();
+    this.abreModal2();
   }
 
   listarSalasEquip = () => {
-    fetch('http://localhost:5000/api/Equipamentos/Salas&Equipamentos/'+ this.state.idSalaSelecionado)
+    fetch('http://localhost:5000/api/Equipamentos/Salas&Equipamentos/2')
 
     .then(dados => this.setState({listaSalasEquip : dados}))
 
@@ -225,7 +219,17 @@ class salas extends Component{
           <section className="modalContent" id="modal2">
             <div className="areaCadastro">
               <div className="contentModalDetalhes">
-                <p>{this.state.nome}</p>
+                {/* {
+                  this.state.listaSalasEquip.map((dados) => {
+                    return(
+                      <div>
+                  
+                      <p>{dados.marca}</p>
+
+                      </div>
+                    )
+                  })
+                } */}
               </div>
             </div>
           </section>
