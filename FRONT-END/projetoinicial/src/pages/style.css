@@ -33,15 +33,17 @@
     color: #E5E5E5;
     background-color: #3A3A3A;
     width: 220px;
+    height: 100vh;
     font-family: 'Montserrat';
+    position: fixed;
 }
 
 .barraContent {
-    max-height: 400px;
+    height: 320px;
 }
 
 .links{
-    height: 160px;
+    height: 80px;
     padding-left: 50px;
     color: white;
 }
@@ -62,23 +64,30 @@
 
 /* pagina inteira */
 
-.corpo{
-    width: 100%;
-    height: 100%;
-    background-color: #E5E5E5;
-}
-
 .content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding-left: 250px;
     align-items: center;
-    padding-bottom: 170px;
+}
+
+body::-webkit-scrollbar {
+    width: 14px;  
+    height: 12px;             
+}
+
+body::-webkit-scrollbar-track {
+    background: #10416d70; 
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #354089;  
 }
 
 /* area de cadastro */
 
-.areaCadastro button, .areaCadastroEquip button {
+.buttonGeral {
     width: 120px;
     height: 25px;
     background-color: #354089;
@@ -86,9 +95,13 @@
     font-family: 'Montserrat';
     color: #fff;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
     margin-top: 20px;
+    cursor: pointer;
 }
-
 
 .inputsCadastros {
     width: 300px;
@@ -123,6 +136,7 @@
     font-family: 'montserrat';
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 .areaCadastroEquip, .areaCadastro{
@@ -130,11 +144,63 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #E5E5E5;
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px rgb(73, 73, 73);
+}
+
+.areaCadastroEquip{
+    width: 490px;
+}
+
+.modalContent {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 0.356);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.mostrar{
+    display: flex;
+}
+
+@keyframes modal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.areaCadastro, .areaCadastroEquip, .boxListarEquip {
+    animation: modal .3s;
+}
+
+.botaoCadastroContent {
+    width: 80%;
+    justify-content: space-between;
+}
+
+.containerCadastro {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .tituloCadastro {
     width: 90px;
     display: flex;
+    margin-right: 10px;
     justify-content: flex-end;
 }
 
@@ -146,7 +212,7 @@
 
 .contentCadastro {
     width: 430px;
-    height: 200px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -159,34 +225,44 @@
     justify-content: space-between;
 }
 
-/* titulo da pagina  */
-.contentTitulo {
-    width: 155vh;
-    height: 40%;
+.contentBotaoCadastrar {
+    height: 100px;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
-.tituloPagina {
-    width: 583px;
-    height: 35px;
+.contentBotaoCadastrar button {
+    width: 250px;
+    height: 30px;
+    border-radius: 3px;
     background-color: #354089;
-    font-size: 25px;
     font-family: 'montserrat';
     color: white;
-    padding-left: 20px;
-    border-radius: 3px;
+    outline: 0;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
 }
 
 /* login  */
 
 .loginImg {
-    width: 65%;
+    width: 68%;
+}
+
+.tituloLogin{
+    font-family: 'montserrat';
+    margin-bottom: 20px;
 }
 
 .areaLogin{
     width: 380px;
-    height: 290px;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .contentLogin {
@@ -194,7 +270,7 @@
 }
 
 .inputsLogin {
-    width: 350px;
+    width: 320px;
     height: 35px;
     background-color: #65829C;
     border-radius: 4px;
@@ -220,9 +296,39 @@
     margin: 10px;
 }
 
+.lixeira {
+    width: 10px;
+    height: 20px;
+}
+
+.contentLixo{
+    text-align: end;
+}
+
+.buttonLixeira{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.contentDetalhes{
+    font-size: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.listaEscondida{
+    display: none;
+}
+
+.detalhes{
+    cursor: pointer;
+    font-size: 12px;
+}
+
 .boxListarEquip {
     width: 260px;
-    height: 60%;
+    height: 240px;
     background-image: linear-gradient(#474961, #3A3A3A);
     border-radius: 5px;
     font-family: 'montserrat';
@@ -233,9 +339,33 @@
     margin: 20px;
 }
 
-.tituloSala{
-    margin-bottom: 10px;
+.ListaPrincipal{
+    width: 90%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: #65829C;
+    background-size: cover;
+    font-family: 'montserrat';
+    color: rgb(255, 255, 255);
+    padding: 15px;
 }
+
+.ListaPrincipal table{
+    width: 100%;
+    border-spacing:10px;
+    text-align: center;
+}
+
+.its{
+    background-color: rgba(255, 255, 255, 0.800);
+    border-radius: 3px;
+    color: #1b1d1f;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    height: 27px;
+    text-align: center;
+}
+
 
 .linhaListar{
     width: 200px;
@@ -247,27 +377,19 @@
     justify-content: space-between;
 }
 
-.contentBoxListarEquip{
-    max-width: 1000px;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
 .contentBoxListar{
-    width: 1090px;
-    height: 60%;
+    width: 77vw;
     display: flex;
     flex-wrap: wrap;
 }
 
 .borda {
-    width: 160px;
+    width: 165px;
     height: 30px;
-    padding-left: 10px;
+    padding-left: 20px;
     background-color: #354089;
     display: flex;
+    margin-left: -20px;
     align-items: center;
     border-radius: 5px 0 0 5px;
-    box-shadow: 1px 1px 5px #494949
-
 }

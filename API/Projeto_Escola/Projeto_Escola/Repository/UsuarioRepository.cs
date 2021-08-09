@@ -49,11 +49,6 @@ namespace Projeto_Escola.Repository
         {
              Usuario usuarioBuscado = ctx.Usuarios.Find(id);
 
-                if (usuarioBuscado.IdUsuario != null)
-                {
-                    usuarioBuscado.IdUsuario = usuarioAtualizada.IdUsuario;
-                }
-
             if (usuarioBuscado.Email != null)
             {
                 usuarioBuscado.Email = usuarioAtualizada.Email;

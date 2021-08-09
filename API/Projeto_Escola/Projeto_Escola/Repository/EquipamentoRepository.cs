@@ -66,9 +66,17 @@ namespace Projeto_Escola.Repository
         public List<Equipamento> Listar()
         {
             return ctx.Equipamentos
-                .Include(c => c.IdSalaNavigation)
-                .Include(c => c.IdTipoEquipamentoNavigation)
+                .Include(c=> c.IdSalaNavigation)
+                .Include(c=> c.IdTipoEquipamentoNavigation)
                 .ToList();
         }
-    }
+
+        public List<Equipamento> ListarSalaEquip(int id)
+        {
+            return ctx.Equipamentos
+            .Include(c=> c.IdSalaNavigation)
+            .Where(c=> c.IdSalaNavigation.IdSala == id)
+            .ToList();
+        }
+    }   
 }

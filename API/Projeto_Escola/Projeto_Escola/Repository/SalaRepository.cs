@@ -2,6 +2,7 @@
 using Projeto_Escola.Domains;
 using Projeto_Escola.Interfaces;
 using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,6 +69,14 @@ namespace Projeto_Escola.Repository
         public List<Sala> Listar()
         {
             return ctx.Salas.ToList();
+        }
+
+        public List<Sala> ListarSalaEquip(int id)
+        {
+            return ctx.Salas
+            .Include(c=> c.Equipamentos)
+            .Where(c=> c.IdSala == id)
+            .ToList();
         }
     }
 }

@@ -43,6 +43,14 @@ namespace Projeto_Escola.Controller
 
         //----------------------------------------------------------------------------------------------
 
+        [HttpGet("Salas&Equipamentos/{id}")]
+        public IActionResult ListaEquipamento(int id)
+        {
+            return Ok(_equipamento.ListarSalaEquip(id));
+        }
+
+        //----------------------------------------------------------------------------------------------
+
         [HttpPost]
         public IActionResult CadastraEquipamento(Equipamento novoEquipamento)
         {

@@ -25,7 +25,7 @@ class Login extends Component{
     .then(resposta => {
       if(resposta.status === 200){
         localStorage.setItem('token-login', resposta.data.token);
-        this.props.history.push('/cadastroSalas');
+        this.props.history.push('/salas');
       }
     })
 
@@ -48,9 +48,9 @@ class Login extends Component{
             <h1 className="tituloLogin">Faça seu login</h1>
 
             <input type="text" className="inputsLogin" onChange={this.funcaoMudaState} name='email' value={this.state.email} placeholder="E-Mail"/>
-            <input type="text" className="inputsLogin" onChange={this.funcaoMudaState} name='senha' value={this.state.senha} placeholder="Senha"/>
+            <input type="password" className="inputsLogin" onChange={this.funcaoMudaState} name='senha' value={this.state.senha} placeholder="Senha"/>
 
-            <button type="submit">Login</button>
+            <button className="buttonGeral" type="submit">Login</button>
         </form>
         </section>
       </section>

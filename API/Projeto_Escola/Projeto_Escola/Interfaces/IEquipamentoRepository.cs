@@ -10,6 +10,7 @@ namespace Projeto_Escola.Interfaces
     {
         //O METODO ABAIXO LISTA OS EQUIPAMENTOS
         List<Equipamento> Listar();
+        List<Equipamento> ListarSalaEquip(int id);
 
         //O METODO ABAIXO BUSCA UM EQUIPAMENTO A PARTIR DO SEU ID QUE SERÁ PASSADO NA URL
         Equipamento BuscarPorId(int id);

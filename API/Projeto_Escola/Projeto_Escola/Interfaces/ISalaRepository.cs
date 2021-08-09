@@ -10,6 +10,7 @@ namespace Projeto_Escola.Interfaces
     {
         //O METODO ABAIXO LISTA AS SALA
         List<Sala> Listar();
+        List<Sala> ListarSalaEquip(int id);
 
         //O METODO ABAIXO BUSCA UMA SALA A PARTIR DO SEU ID QUE SERÁ PASSADO NA URL
         Sala BuscarPorId(int id);
