@@ -9,13 +9,16 @@ class Login extends Component{
     this.state = {
       email : '',
       senha : '', 
-      erroMensagem : ''
+      erroMensagem : '',
+      isLoading : false
     }
   }
 
   login = (event) => {
 
     event.preventDefault();
+
+    this.setState({erroMensagem : '', isLoading : true})
 
     axios.post('http://localhost:5000/api/login', {
       email : this.state.email,
@@ -24,12 +27,13 @@ class Login extends Component{
 
     .then(resposta => {
       if(resposta.status === 200){
+        this.setState({isLoading : false})
         localStorage.setItem('token-login', resposta.data.token);
         this.props.history.push('/salas');
       }
     })
 
-    .catch(error => console.log(error))
+    .catch(()=> this.setState({erroMensagem: 'E-Mail ou Senha incorreto(s)', isLoading: false}))
 
   }
 
@@ -50,7 +54,16 @@ class Login extends Component{
             <input type="text" className="inputsLogin" onChange={this.funcaoMudaState} name='email' value={this.state.email} placeholder="E-Mail"/>
             <input type="password" className="inputsLogin" onChange={this.funcaoMudaState} name='senha' value={this.state.senha} placeholder="Senha"/>
 
-            <button className="buttonGeral" type="submit">Login</button>
+            <p className="msgErro">{this.state.erroMensagem}</p>
+
+                {
+                    this.state.isLoading === true && <button type="submit" className='buttonGeral' disabled>Carregando...</button>
+                }
+
+                {
+                    this.state.isLoading === false && <button type="submit" className='buttonGeral'
+                    disabled={this.state.email === '' || this.state.senha === ''? 'none' : ''}>Login</button>
+                }
         </form>
         </section>
       </section>

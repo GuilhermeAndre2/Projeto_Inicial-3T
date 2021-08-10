@@ -132,7 +132,6 @@ class Equipamentos extends Component{
 
     atualizaPeloId = (event) => {
 
-      event.preventDefault();
 
       axios.put('http://localhost:5000/api/Equipamentos/'+ this.state.idEquipamentoSelecionado, {
         marca : this.state.marca,
@@ -148,17 +147,19 @@ class Equipamentos extends Component{
             console.log("criado")
 
             this.setState({
-                IdSala : '',
-                numeroSerie : '',
-                numeroPatrimonio : '',
-                descricao : '' 
-            })
+              TipoEquipamento : '',
+              IdSala : '',
+              marca : '',
+              numeroSerie : '',
+              numeroPatrimonio : '',
+              descricao : '' 
+          })
+
+          this.ListaEquipamentos();
         }
     })
 
     .catch(erro => console.log(erro))
-
-    this.ListaEquipamentos();
 
     }
 

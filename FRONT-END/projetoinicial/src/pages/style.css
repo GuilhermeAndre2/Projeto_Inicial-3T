@@ -267,6 +267,12 @@ body::-webkit-scrollbar-thumb {
     width: 68%;
 }
 
+.msgErro {
+    font-family: 'montserrat';
+    color: red;
+    margin-top: 10px;
+}
+
 .tituloLogin{
     font-family: 'montserrat';
     margin-bottom: 20px;

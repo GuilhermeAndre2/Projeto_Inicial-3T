@@ -32,7 +32,7 @@ CREATE TABLE Equipamentos
 	IdEquipamento         INT PRIMARY KEY IDENTITY,
 	IdTipoEquipamento     INT FOREIGN KEY REFERENCES TipoEquipamentos(IdTipoEquipamento),
 	IdSala				  INT FOREIGN KEY REFERENCES Sala(IdSala),
-	Situacao			  BIT DEFAULT(1),
+	Situacao			  BIT,
 	Marca				  VARCHAR(100),
 	NumeroSerie			  VARCHAR(100),
 	NumeroPatrimonio	  VARCHAR(100),
@@ -48,3 +48,4 @@ CREATE TABLE DataMovimentacao
 );
 
 DROP TABLE Horario;
+DROP TABLE Equipamentos;

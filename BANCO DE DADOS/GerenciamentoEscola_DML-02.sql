@@ -16,8 +16,8 @@ VALUES			('Mobiliario'),
 				('EletroELetronico')
 
 INSERT INTO Equipamentos(IdTipoEquipamento, IdSala, Situacao, Marca, NumeroSerie, NumeroPatrimonio, Descricao)
-VALUES					(1, 1, 1, 'Samsung', '123456####', '1', 'Notebook Samsung, 1TB, 16GB RAM'),
-						(1, 1, 1, 'Apple', '123457####', '2', 'MackBook Air, 2TB 4GB RAM I3 5º Geração')
+VALUES					(1, 1, 0, 'Samsung', '123456898', '1', 'Notebook Samsung, 1TB, 16GB RAM'),
+						(1, 1, 0, 'Apple', '1234579896', '2', 'MackBook Air, 2TB 4GB RAM I3 5º Geração')
 
 
 INSERT INTO DataMovimentacao	(IdSala, IdEquipamento, DataEntrada, DataSaida)
