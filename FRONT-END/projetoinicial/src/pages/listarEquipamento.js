@@ -8,6 +8,7 @@ const dadosIniciais = {
         TipoEquipamento : '',
         IdSala : '',
         marca : '',
+        situacao: 0,
         numeroSerie : '',
         numeroPatrimonio : '',
         descricao : ''
@@ -25,6 +26,7 @@ class Equipamentos extends Component{
         TipoEquipamento : '',
         IdSala : '',
         marca : '',
+        situacao : 0,
         numeroSerie : '',
         numeroPatrimonio : '',
         descricao : '',
@@ -97,7 +99,7 @@ class Equipamentos extends Component{
       await axios.post('http://localhost:5000/api/Equipamentos', {
             idTipoEquipamento : this.state.TipoEquipamento,
             idSala : this.state.IdSala, 
-            situacao : parseInt(0), 
+            situacao : parseInt(this.state.situacao), 
             marca : this.state.marca, 
             numeroSerie : this.state.numeroSerie, 
             numeroPatrimonio : this.state.numeroPatrimonio, 
@@ -126,6 +128,38 @@ class Equipamentos extends Component{
 
     funcaoMudaState = (campo) => {
       this.setState({[campo.target.name] : campo.target.value})
+    }
+
+    atualizaPeloId = (event) => {
+
+      event.preventDefault();
+
+      axios.put('http://localhost:5000/api/Equipamentos/'+ this.state.idEquipamentoSelecionado, {
+        marca : this.state.marca,
+        idSala : this.state.IdSala, 
+        situacao : parseInt(this.state.situacao),
+        numeroSerie : this.state.numeroSerie, 
+        numeroPatrimonio : this.state.numeroPatrimonio, 
+        descricao : this.state.descricao
+      })
+
+      .then(resposta => {
+        if(resposta.status === 201) {
+            console.log("criado")
+
+            this.setState({
+                IdSala : '',
+                numeroSerie : '',
+                numeroPatrimonio : '',
+                descricao : '' 
+            })
+        }
+    })
+
+    .catch(erro => console.log(erro))
+
+    this.ListaEquipamentos();
+
     }
 
     buscarPeloId = async (user) => {
@@ -191,12 +225,16 @@ class Equipamentos extends Component{
 
       this.ListaEquipamentos();
     }
+
+    deslogar () {
+      localStorage.removeItem('token-login')
+    }
   
     render(){
 
       return(
         <section class="corpo dis ">
-        <div class="barra-lateral dis column ali">
+        <div class="barra-lateral dis column ali spa">
             <div class="barraContent dis column ali spa">
                 <img src={logoImg} alt="logo"/>
 
@@ -207,6 +245,7 @@ class Equipamentos extends Component{
                     <Link className="linkstext borda" to="Equipamentos">Equipamentos</Link>
                 </div>
             </div>
+            <Link className="teclaSair" onClick={this.deslogar} to="/">Sair</Link>
         </div>
         <section class="content dis column ali jus">
           <div className="contentBotaoCadastrar">
@@ -230,11 +269,9 @@ class Equipamentos extends Component{
                               return(
                                   <tr key={dados.idEquipamento}>
                                       <td className="its">{dados.marca}</td>
-                                      {/* <td className="its">informatica ***</td>
-                                      <td className="its">eletronico ***</td> */}
                                       <td className="its">{dados.idSalaNavigation.nome}</td> 
                                       <td className="its">{dados.idTipoEquipamentoNavigation.nome}</td>
-                                      <td className="its">{dados.situacao = false ? <p>Ativo</p> : <p>Inativo</p>}</td>
+                                      <td className="its">{dados.situacao ? <p>Ativo</p> : <p>Inativo</p>}</td>
                                       <td className="its"> <button className="buttonLixeira" onClick ={()=> {this.IdExcluir(dados)}} >Excluir</button></td>
                                       <td><p className="detalhes" onClick={()=> this.buscarPeloId(dados)}>+ Ver detalhes</p></td>
                                       <td><p className="detalhes" onClick={()=> this.EditarPeloId(dados)}>+ Editar</p></td>
@@ -306,7 +343,9 @@ class Equipamentos extends Component{
                         <div class="tituloCadastroBig">
                             <p> Situação </p>
                         </div>
-                        <input class="inputsCadastros" name='situacao' value={this.state.situacao} type="text" placeholder="Inativo" readOnly onChange={this.funcaoMudaState}/>
+                        <select class="selectCadastros" name = 'situacao' value = {this.state.situacao} onChange = {this.funcaoMudaState}>
+                          <option value="0">Inativo</option>
+                        </select>
                     </div>
                     <div class="contentInput dis">
                         <div class="tituloCadastroBig">
@@ -338,7 +377,7 @@ class Equipamentos extends Component{
                   </div>
                   <div className="dis linhaListarEquip">
                     <p>Situção</p>
-                    <p>{this.state.data.situacao = true ? <p>Ativo</p> : <p>Inativo</p>}</p>
+                    <p>{this.state.data.situacao ? <p>Ativo</p> : <p>Inativo</p>}</p>
                   </div>
                   <div className="linhaListarEquip">
                     <p>Descrição:</p>
@@ -351,18 +390,20 @@ class Equipamentos extends Component{
           </section>
           
             <section className="modalContent" id="modal3">
-              <form onSubmit={this.CadastrarEquipamento} class="areaCadastroEquip">
-                  <div class="contentCadastroEquipamento">
-                      <div className = "dis linhaListarEquip">
-                          <p>Marca</p>
-                          <p>{this.state.data.marca}</p>
-                        </div>
+              <form onSubmit={this.atualizaPeloId} class="areaCadastroEquip">
+                  <div class="contentAtualizaEquipamento">
+                    <div class="contentInput dis">
+                          <div class="tituloCadastroBig">
+                              <p> Marca </p>
+                          </div>
+                          <input class="inputsCadastros" name='marca' value={this.state.marca} type="text" placeholder="Digite o novo nome da marca" onChange={this.funcaoMudaState}/>
+                    </div>
                       <div class="contentInput dis">
                           <div class="tituloCadastroBig">
                               <p> Sala </p>
                           </div>
                           <select name="IdSala" value={this.state.IdSala} class="selectCadastros" id="" onChange={this.funcaoMudaState}>
-                              <option value="0">Selecione uma sala</option>
+                              <option value="0">Selecione uma nova sala</option>
                               {
                                   this.state.ListaSalas.map((salas) => {
                                       return(
@@ -377,29 +418,32 @@ class Equipamentos extends Component{
                           <div class="tituloCadastroBig">
                               <p> Nº de série </p>
                           </div>
-                          <input class="inputsCadastros" type="text" name='numeroSerie' value={this.state.numeroSerie} onChange={this.funcaoMudaState} placeholder="Digite o número de série" />
+                          <input class="inputsCadastros" type="text" name='numeroSerie' value={this.state.numeroSerie} onChange={this.funcaoMudaState} placeholder="Digite o novo número de série" />
                       </div>
                       <div class="contentInput dis">
                           <div class="tituloCadastroBig">
                               <p> Nº de patrimônio </p>
                           </div>
-                          <input class="inputsCadastros" name='numeroPatrimonio' value={this.state.numeroPatrimonio} type="text" placeholder="Digite o número de patrimônio" onChange={this.funcaoMudaState}/>
+                          <input class="inputsCadastros" name='numeroPatrimonio' value={this.state.numeroPatrimonio} type="text" placeholder="Digite o novo número de patrimônio" onChange={this.funcaoMudaState}/>
+                      </div>
+                      <div class="contentInput dis">
+                        <div class="tituloCadastroBig">
+                            <p> Situação </p>
+                        </div>
+                        <select class="selectCadastros" name = 'situacao' value = {this.state.situacao} onChange = {this.funcaoMudaState}>
+                          <option value="0">Inativo</option>
+                          <option value="1">Ativo</option>
+                        </select>
                       </div>
                       <div class="contentInput dis">
                           <div class="tituloCadastroBig">
-                              <p> Situação </p>
+                              <p>Descrição </p>
                           </div>
-                          <input class="inputsCadastros" name='situacao' value={this.state.situacao} type="text" placeholder="Inativo" readOnly onChange={this.funcaoMudaState}/>
-                      </div>
-                      <div class="contentInput dis">
-                          <div class="tituloCadastroBig">
-                              <p> Descrição </p>
-                          </div>
-                          <input class="inputsCadastros" name='descricao' value={this.state.descricao} type="text" placeholder="Digite a descrição" onChange={this.funcaoMudaState}/>
+                          <input class="inputsCadastros" name='descricao' value={this.state.descricao} type="text" placeholder="Digite a nova descrição" onChange={this.funcaoMudaState}/>
                       </div>
                   </div>
                     <div className="botaoCadastroContent dis">
-                        <button className="buttonGeral" id="fechar" type='submit'> Cadastrar </button>
+                        <button className="buttonGeral" id="fechar" type='submit'> Atualizar dados </button>
                         <div className="buttonGeral" id="fechar"> Cancelar </div>
                     </div>
               </form>

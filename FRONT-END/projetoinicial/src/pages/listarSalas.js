@@ -2,7 +2,6 @@ import './style.css';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/img/Group 35.png'
-// import lixo from '../assets/img/trash-solid.svg'
 import axios from 'axios';
 
 
@@ -36,9 +35,8 @@ class salas extends Component{
 
   buscarPeloId = async (user) => {
 
-    await this.setState({idEquipamentoSelecionado : user.idSala})
-    await this.listarSalasEquip();
-    this.abreModal2();
+    await this.setState({idSalaSelecionado : user.idSala})
+    this.excluir();
   }
 
   listarSalasEquip = () => {
@@ -51,17 +49,17 @@ class salas extends Component{
     console.log(this.state.listaSalasEquip)
   }
 
-  buscarSala = () => {
-    axios('http://localhost:5000/api/Salas/' + this.state.idSalaSelecionado)
+  // buscarSala = () => {
+  //   axios('http://localhost:5000/api/Salas/' + this.state.idSalaSelecionado)
     
-    .then(dados => this.setState ({
-      nome : dados.nome
-    }))
+  //   .then(dados => this.setState ({
+  //     nome : dados.nome
+  //   }))
 
-    .then(dados => console.log(dados))
+  //   .then(dados => console.log(dados))
 
-    .catch(erro => console.log(erro))
-  }
+  //   .catch(erro => console.log(erro))
+  // }
 
   excluir = async ()=>{
     await axios.delete('http://localhost:5000/api/Salas/'+ this.state.idSalaSelecionado)
@@ -117,23 +115,27 @@ class salas extends Component{
     })
   }
 
-  abreModal2 = async () => {
-    const modal = await document.getElementById('modal2')
+  // abreModal2 = async () => {
+  //   const modal = await document.getElementById('modal2')
 
-    if(modal){
-      modal.classList.add('mostrar')
-      modal.addEventListener('click', (e)=> {
-        if(e.target.id === "modal2" || e.target.id === "fechar"){
-          modal.classList.remove('mostrar')
-        }
-      })
-    }
+  //   if(modal){
+  //     modal.classList.add('mostrar')
+  //     modal.addEventListener('click', (e)=> {
+  //       if(e.target.id === "modal2" || e.target.id === "fechar"){
+  //         modal.classList.remove('mostrar')
+  //       }
+  //     })
+  //   }
+  // }
+
+  deslogar () {
+    localStorage.removeItem('token-login')
   }
 
   render(){
     return(
         <section class="corpo dis">
-        <div class="barra-lateral dis column ali">
+        <div class="barra-lateral dis column ali spa">
             <div class="barraContent dis column ali spa">
                 <img src={logoImg} alt="logo"/>
 
@@ -141,9 +143,10 @@ class salas extends Component{
 
                 <div class="links dis column spa">
                     <Link className="linkstext borda" to="salas">Salas</Link>
-                    <Link className="linkstext" to="Equipamentos">Equipamentos</Link>
+                    <Link className="linkstext " to="Equipamentos">Equipamentos</Link>
                 </div>
             </div>
+            <Link className="teclaSair" onClick={this.deslogar} to="/">Sair</Link>
         </div>
         <section class="content dis column">
         <div className="contentBotaoCadastrar">
@@ -157,7 +160,6 @@ class salas extends Component{
               return(
                 <div className="boxListarSalas dis column ali">
                     <p>{dados.nome}</p>
-                    {/* <button className="buttonLixeira" onClick ={()=> this.buscarPeloId(dados)}><img src={lixo} className="lixeira"/></button> */}
                   <div className = "dis linhaListar">
                     <p>Andar</p>
                     <p>{dados.andar}</p>
@@ -167,7 +169,7 @@ class salas extends Component{
                     <p>{dados.metragem}</p>
                   </div>
                   <div className="contentDetalhes" onClick={()=> this.buscarPeloId(dados)}>
-                      <p>+Ver detalhes</p>
+                      <p>+Excluir</p>
                     </div>
                 </div>
               )
@@ -214,24 +216,6 @@ class salas extends Component{
 
                   </form>
               </div>
-          </section>
-
-          <section className="modalContent" id="modal2">
-            <div className="areaCadastro">
-              <div className="contentModalDetalhes">
-                {/* {
-                  this.state.listaSalasEquip.map((dados) => {
-                    return(
-                      <div>
-                  
-                      <p>{dados.marca}</p>
-
-                      </div>
-                    )
-                  })
-                } */}
-              </div>
-            </div>
           </section>
     </section>
     )

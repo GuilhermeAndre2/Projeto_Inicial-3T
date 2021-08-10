@@ -33,9 +33,16 @@
     color: #E5E5E5;
     background-color: #3A3A3A;
     width: 220px;
-    height: 100vh;
+    height: 98vh;
     font-family: 'Montserrat';
     position: fixed;
+}
+
+.teclaSair{
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
 }
 
 .barraContent {
@@ -220,6 +227,14 @@ body::-webkit-scrollbar-thumb {
 .contentCadastroEquipamento {
     width: 500px;
     height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contentAtualizaEquipamento {
+    width: 500px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

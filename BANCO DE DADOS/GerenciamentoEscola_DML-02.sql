@@ -22,4 +22,3 @@ VALUES					(1, 1, 1, 'Samsung', '123456####', '1', 'Notebook Samsung, 1TB, 16GB 
 
 INSERT INTO DataMovimentacao	(IdSala, IdEquipamento, DataEntrada, DataSaida)
 VALUES							(1, 2, '04-08-2021 12:00', '04-08-2021 06:00')
-	
